@@ -15,7 +15,7 @@ class ImprovementCollectionViewCell: UICollectionViewCell {
     private var selectImageView = UIImageView()
     
     lazy var width: NSLayoutConstraint = {
-        let width = contentView.widthAnchor.constraint(equalToConstant: bounds.size.width)
+        let width = contentView.widthAnchor.constraint(equalToConstant: safeAreaLayoutGuide.layoutFrame.width)
         width.isActive = true
         return width
     }()
@@ -30,7 +30,7 @@ class ImprovementCollectionViewCell: UICollectionViewCell {
     }
     
     override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
-        width.constant = bounds.size.width
+        width.constant = safeAreaLayoutGuide.layoutFrame.width
         return contentView.systemLayoutSizeFitting(CGSize(width: targetSize.width, height: 0))
     }
     
