@@ -20,7 +20,7 @@ class ImprovementViewController: UIViewController, ImprovementViewProtocol {
     var presenter: ImprovementPresenterProtocol?
     var assembly: ImprovementAssemblyProtocol = ImprovementAssembly()
     
-    private var closeImageView = UIImageView()
+    private var closeButton = UIButton()
     private var offerLabel = UILabel()
     
     var improvementsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -63,17 +63,18 @@ class ImprovementViewController: UIViewController, ImprovementViewProtocol {
     }
     
     private func setupCloseImageView() {
-        self.view.addSubview(closeImageView)
+        self.view.addSubview(closeButton)
         
         let closeIconImage = UIImage(named: "CloseIconTemplate.pdf")
-        closeImageView.image = closeIconImage
+        closeButton.setImage(closeIconImage, for: .normal)
+        closeButton.isEnabled = false
         
         let safeArea = view.safeAreaLayoutGuide
-        closeImageView.translatesAutoresizingMaskIntoConstraints = false
-        closeImageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10).isActive = true
-        closeImageView.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 15).isActive = true
-        closeImageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        closeImageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 10).isActive = true
+        closeButton.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 15).isActive = true
+        closeButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        closeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
     
     private func setupOfferLabel() {
@@ -84,7 +85,7 @@ class ImprovementViewController: UIViewController, ImprovementViewProtocol {
         
         let safeArea = view.safeAreaLayoutGuide
         offerLabel.translatesAutoresizingMaskIntoConstraints = false
-        offerLabel.topAnchor.constraint(equalTo: self.closeImageView.bottomAnchor, constant: 10).isActive = true
+        offerLabel.topAnchor.constraint(equalTo: self.closeButton.bottomAnchor, constant: 10).isActive = true
         offerLabel.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 15).isActive = true
         offerLabel.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -15).isActive = true
         offerLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
