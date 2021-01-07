@@ -14,6 +14,12 @@ class ImprovementCollectionViewCell: UICollectionViewCell {
     private var priceLabel = UILabel()
     private var selectImageView = UIImageView()
     
+    lazy var width: NSLayoutConstraint = {
+        let width = contentView.widthAnchor.constraint(equalToConstant: bounds.size.width)
+        width.isActive = true
+        return width
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
         setupCell()
@@ -21,6 +27,11 @@ class ImprovementCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+        width.constant = bounds.size.width
+        return contentView.systemLayoutSizeFitting(CGSize(width: targetSize.width, height: 0))
     }
     
     func setTitle(_ title: String) {
@@ -57,7 +68,6 @@ class ImprovementCollectionViewCell: UICollectionViewCell {
         setupDescriptionLabel()
         setupPriceLabel()
         
-        contentView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.width - 30).isActive = true
         contentView.bottomAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 10).isActive = true
     }
     

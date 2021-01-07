@@ -14,14 +14,41 @@ class ImprovementViewController: UIViewController {
     private var closeButton = UIButton()
     private var offerLabel = UILabel()
     
-    var improvementsCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    var improvementsCollectionViewLayout = UICollectionViewFlowLayout()
+    private var collectionViewLayout: UICollectionViewFlowLayout = {
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
+        flowLayout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.size.width - 30, height: 0)
+        
+        return flowLayout
+    }()
+    
+    var improvementsCollectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.backgroundColor = .white
+        collectionView.register(ImprovementCollectionViewCell.self, forCellWithReuseIdentifier: "ImprovementCell")
+        
+        return collectionView
+    }()
+    
     private var selectButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         assembly.createModule(with: self)
         setupView()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        let safeArea = view.safeAreaLayoutGuide
+        collectionViewLayout.estimatedItemSize = CGSize(width: safeArea.layoutFrame.width - 30, height: 0)
+        super.traitCollectionDidChange(previousTraitCollection)
+    }
+        
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        let safeArea = view.safeAreaLayoutGuide
+        collectionViewLayout.estimatedItemSize = CGSize(width: safeArea.layoutFrame.width - 30, height: 0)
+        collectionViewLayout.invalidateLayout()
+        super.viewWillTransition(to: size, with: coordinator)
     }
     
     func setOfferTitle(_ title: String) {
@@ -72,7 +99,7 @@ class ImprovementViewController: UIViewController {
         offerLabel.topAnchor.constraint(equalTo: self.closeButton.bottomAnchor, constant: 10).isActive = true
         offerLabel.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 15).isActive = true
         offerLabel.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -15).isActive = true
-        offerLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        offerLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
     private func setupSelectButton() {
@@ -96,12 +123,7 @@ class ImprovementViewController: UIViewController {
     
     private func setupImprovementsCollectionView() {
         self.view.addSubview(improvementsCollectionView)
-        improvementsCollectionView.backgroundColor = .white
-        
-        improvementsCollectionViewLayout.scrollDirection = .vertical
-        improvementsCollectionViewLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-        improvementsCollectionView.collectionViewLayout = improvementsCollectionViewLayout
-        improvementsCollectionView.register(ImprovementCollectionViewCell.self, forCellWithReuseIdentifier: "ImprovementCell")
+        improvementsCollectionView.collectionViewLayout = collectionViewLayout
         
         let safeArea = view.safeAreaLayoutGuide
         improvementsCollectionView.translatesAutoresizingMaskIntoConstraints = false
