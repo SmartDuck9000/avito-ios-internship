@@ -126,6 +126,7 @@ class ImprovementViewController: UIViewController {
         let safeArea = view.safeAreaLayoutGuide
         collectionViewLayout.estimatedItemSize = CGSize(width: safeArea.layoutFrame.width - 30, height: 0)
         improvementsCollectionView.collectionViewLayout = collectionViewLayout
+        improvementsCollectionView.showsVerticalScrollIndicator = false
         
         improvementsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         improvementsCollectionView.topAnchor.constraint(equalTo: self.offerLabel.bottomAnchor, constant: 20).isActive = true
