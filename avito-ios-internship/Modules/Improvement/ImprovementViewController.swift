@@ -17,7 +17,6 @@ class ImprovementViewController: UIViewController {
     private var collectionViewLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
-        flowLayout.estimatedItemSize = CGSize(width: UIScreen.main.bounds.size.width - 30, height: 0)
         
         return flowLayout
     }()
@@ -123,9 +122,11 @@ class ImprovementViewController: UIViewController {
     
     private func setupImprovementsCollectionView() {
         self.view.addSubview(improvementsCollectionView)
-        improvementsCollectionView.collectionViewLayout = collectionViewLayout
         
         let safeArea = view.safeAreaLayoutGuide
+        collectionViewLayout.estimatedItemSize = CGSize(width: safeArea.layoutFrame.width - 30, height: 0)
+        improvementsCollectionView.collectionViewLayout = collectionViewLayout
+        
         improvementsCollectionView.translatesAutoresizingMaskIntoConstraints = false
         improvementsCollectionView.topAnchor.constraint(equalTo: self.offerLabel.bottomAnchor, constant: 20).isActive = true
         improvementsCollectionView.bottomAnchor.constraint(equalTo: self.selectButton.topAnchor, constant: -20).isActive = true

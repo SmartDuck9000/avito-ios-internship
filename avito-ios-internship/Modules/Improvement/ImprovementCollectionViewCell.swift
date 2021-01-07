@@ -61,6 +61,7 @@ class ImprovementCollectionViewCell: UICollectionViewCell {
     private func setupCell() {
         self.backgroundColor = UIColor(red: 240.0 / 255, green: 240.0 / 255, blue: 240.0 / 255, alpha: 1.0)
         self.layer.cornerRadius = 6
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         
         setupIconImageView()
         setupSelectImageView()
