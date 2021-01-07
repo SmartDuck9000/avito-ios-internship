@@ -10,6 +10,7 @@ import UIKit
 protocol ImprovementInteractorProtocol: class {
     func loadData()
     func loadImage(from source: String, complition: @escaping (_ data: Data?) -> Void)
+    func getIconData(at index: Int) -> Data?
     
     func improvementChanged(at index: Int)
     func improvementsCount() -> Int?
@@ -32,6 +33,7 @@ class ImprovementInteractor: ImprovementInteractorProtocol {
     
     private var advertismentImprovement: AdvertismentImprovement?
     private var selectedImprovement: Improvement?
+    private var iconData: [String:Data?] = [:]
     
     var improvementsLoader: LoaderProtocol?
     var imageLoader: LoaderProtocol?
@@ -45,10 +47,17 @@ class ImprovementInteractor: ImprovementInteractorProtocol {
         improvementsLoader?.load(from: "result", complition: { (data) in
             guard let jsonImprovementData = data else { return }
             self.advertismentImprovement = self.parser?.parse(from: jsonImprovementData)
-            let improvements = self.advertismentImprovement?.improvements
+            guard let improvements = self.advertismentImprovement?.improvements else { return }
             self.selectedImprovement = nil
             
-            if var selected = improvements?.filter({ $0.isSelected }), selected.count > 0 {
+            for improvement in improvements {
+                self.loadImage(from: improvement.icon.url) { (data) in
+                    self.iconData[improvement.id] = data
+                }
+            }
+            
+            var selected = improvements.filter({ $0.isSelected })
+            if selected.count > 0 {
                 self.selectedImprovement = selected.first
                 if selected.count > 1 {
                     print("Warning: result.json contains more than one selected improvement!")
@@ -63,6 +72,12 @@ class ImprovementInteractor: ImprovementInteractorProtocol {
     
     func loadImage(from source: String, complition: @escaping (_ data: Data?) -> Void) {
         imageLoader?.load(from: source, complition: complition)
+    }
+    
+    func getIconData(at index: Int) -> Data? {
+        guard let improvementID = advertismentImprovement?.improvements[index].id else { return nil }
+        guard let data = iconData[improvementID] else { return nil }
+        return data
     }
     
     func improvementChanged(at index: Int) {

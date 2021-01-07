@@ -37,7 +37,6 @@ class ImprovementPresenter: ImprovementPresenterProtocol {
             description = descr
         }
         guard let price = interactor?.getImprovementPrice(at: index) else { return }
-        guard let iconStrURL = interactor?.getImprovementIconURL(at: index) else { return }
         guard let isSelected = interactor?.isImprovementSelected(at: index) else { return }
         
         cell.setTitle(title)
@@ -46,18 +45,16 @@ class ImprovementPresenter: ImprovementPresenterProtocol {
         cell.setSelectedImage(UIImage(named: "checkmark.pdf"))
         cell.setHiddenSelectImage(!isSelected)
         
-        interactor?.loadImage(from: iconStrURL, complition: { (data) in
-            let iconImage: UIImage?
-            if let imageData = data {
-                iconImage = UIImage(data: imageData)
-            } else {
-                iconImage = nil
-            }
-            
-            DispatchQueue.main.async {
-                cell.setIcon(iconImage)
-            }
-        })
+        let iconImage: UIImage?
+        if let imageData = interactor?.getIconData(at: index) {
+            iconImage = UIImage(data: imageData)
+        } else {
+            iconImage = nil
+        }
+        
+        DispatchQueue.main.async {
+            cell.setIcon(iconImage)
+        }
     }
     
     func selectItemClicked(at index: Int) {
