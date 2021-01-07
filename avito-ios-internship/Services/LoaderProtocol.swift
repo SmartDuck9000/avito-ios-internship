@@ -8,5 +8,5 @@
 import Foundation
 
 protocol LoaderProtocol {
-    func load(from source: String) -> Data?
+    func load(from source: String, complition: @escaping (_ data: Data?) -> Void)
 }

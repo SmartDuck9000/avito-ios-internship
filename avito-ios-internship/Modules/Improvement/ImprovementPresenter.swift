@@ -39,7 +39,6 @@ class ImprovementPresenter: ImprovementPresenterProtocol {
         }
         guard let price = interactor?.getImprovementPrice(at: index) else { return }
         guard let iconStrURL = interactor?.getImprovementIconURL(at: index) else { return }
-        guard let iconURL = URL(string: iconStrURL) else { return }
         guard let isSelected = interactor?.isImprovementSelected(at: index) else { return }
         
         cell.setTitle(title)
@@ -52,21 +51,18 @@ class ImprovementPresenter: ImprovementPresenterProtocol {
             cell.setSelectedImage(nil)
         }
         
-        URLSession.shared.dataTask(with: iconURL) { (data, response, error) in
-            var icon: UIImage? = nil
-            
-            if let err = error {
-                print(err.localizedDescription)
-            }
-            
-            if let data = data {
-                icon = UIImage(data: data)
+        interactor?.loadImage(from: iconStrURL, complition: { (data) in
+            let iconImage: UIImage?
+            if let imageData = data {
+                iconImage = UIImage(data: imageData)
+            } else {
+                iconImage = nil
             }
             
             DispatchQueue.main.async {
-                cell.setIcon(icon)
+                cell.setIcon(iconImage)
             }
-        }.resume()
+        })
     }
     
     func selectItemClicked(at index: Int) {

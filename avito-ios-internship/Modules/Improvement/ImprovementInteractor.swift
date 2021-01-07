@@ -8,6 +8,9 @@
 import UIKit
 
 protocol ImprovementInteractorProtocol: class {
+    func loadData()
+    func loadImage(from source: String, complition: @escaping (_ data: Data?) -> Void)
+    
     func improvementChanged(at index: Int)
     func improvementsCount() -> Int?
     
@@ -29,23 +32,34 @@ class ImprovementInteractor: ImprovementInteractorProtocol {
     private var advertismentImprovement: AdvertismentImprovement?
     private var selectedImprovement: Improvement?
     
-    private var loader: LoaderProtocol = FileLoader()
-    private var parser: ImprovementParserProtocol = ImprovementJSONParser()
+    var improvementsLoader: LoaderProtocol?
+    var imageLoader: LoaderProtocol?
+    var parser: ImprovementParserProtocol?
     
-    init() {
-        guard let jsonImprovementData = loader.load(from: "result") else { return }
-        advertismentImprovement = parser.parse(from: jsonImprovementData)
-        let improvements = advertismentImprovement?.improvements
-        if var selected = improvements?.filter({ $0.isSelected }), selected.count > 0 {
-            selectedImprovement = selected.first
-            if selected.count > 1 {
-                print("Warning: result.json contains more than one selected improvement!")
-                selected.removeFirst()
-                for improvement in selected {
-                    improvement.isSelected = false
+    init(presenter: ImprovementPresenterProtocol) {
+        self.presenter = presenter
+    }
+    
+    func loadData() {
+        improvementsLoader?.load(from: "result", complition: { (data) in
+            guard let jsonImprovementData = data else { return }
+            self.advertismentImprovement = self.parser?.parse(from: jsonImprovementData)
+            let improvements = self.advertismentImprovement?.improvements
+            if var selected = improvements?.filter({ $0.isSelected }), selected.count > 0 {
+                self.selectedImprovement = selected.first
+                if selected.count > 1 {
+                    print("Warning: result.json contains more than one selected improvement!")
+                    selected.removeFirst()
+                    for improvement in selected {
+                        improvement.isSelected = false
+                    }
                 }
             }
-        }
+        })
+    }
+    
+    func loadImage(from source: String, complition: @escaping (_ data: Data?) -> Void) {
+        imageLoader?.load(from: source, complition: complition)
     }
     
     func improvementChanged(at index: Int) {

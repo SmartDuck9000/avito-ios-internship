@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE6347BC25A75310003571D4 /* ImprovementRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6347BB25A75310003571D4 /* ImprovementRouter.swift */; };
+		CE6347CA25A762F5003571D4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6347C925A762F5003571D4 /* ImageLoader.swift */; };
 		CE910E0D25A6812B003BA2A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE910E0C25A6812B003BA2A9 /* AppDelegate.swift */; };
 		CE910E0F25A6812B003BA2A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE910E0E25A6812B003BA2A9 /* SceneDelegate.swift */; };
 		CE910E1125A6812B003BA2A9 /* ImprovementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE910E1025A6812B003BA2A9 /* ImprovementViewController.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		CE6347BB25A75310003571D4 /* ImprovementRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImprovementRouter.swift; sourceTree = "<group>"; };
+		CE6347C925A762F5003571D4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		CE910E0925A6812B003BA2A9 /* avito-ios-internship.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "avito-ios-internship.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE910E0C25A6812B003BA2A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE910E0E25A6812B003BA2A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			children = (
 				CE910E3725A688F3003BA2A9 /* LoaderProtocol.swift */,
 				CE910E3A25A68908003BA2A9 /* FileLoader.swift */,
+				CE6347C925A762F5003571D4 /* ImageLoader.swift */,
 				CE910E4125A68928003BA2A9 /* ImprovementParserProtocol.swift */,
 				CE910E4525A68996003BA2A9 /* ImprovementJSONParser.swift */,
 			);
@@ -191,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE6347CA25A762F5003571D4 /* ImageLoader.swift in Sources */,
 				CE910E2E25A685EF003BA2A9 /* ImprovementAssembly.swift in Sources */,
 				CE910E1125A6812B003BA2A9 /* ImprovementViewController.swift in Sources */,
 				CE910E2B25A685CE003BA2A9 /* ImprovementInteractor.swift in Sources */,

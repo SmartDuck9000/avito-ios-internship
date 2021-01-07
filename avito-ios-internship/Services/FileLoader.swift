@@ -8,15 +8,15 @@
 import UIKit
 
 class FileLoader: LoaderProtocol {
-    func load(from source: String) -> Data? {
+    func load(from source: String, complition: @escaping (_ data: Data?) -> Void) {
         if let url = Bundle.main.url(forResource: source, withExtension: "json") {
             do {
                 let resData = try Data(contentsOf: url)
-                return resData
+                complition(resData)
             } catch {
                 print(error)
             }
         }
-        return nil
+        complition(nil)
     }
 }

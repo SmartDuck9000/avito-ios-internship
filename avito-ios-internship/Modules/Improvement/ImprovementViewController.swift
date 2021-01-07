@@ -20,7 +20,7 @@ class ImprovementViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        assembly.assemble(with: self)
+        assembly.createModule(with: self)
         setupView()
     }
     
