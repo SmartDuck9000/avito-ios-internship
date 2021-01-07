@@ -65,7 +65,7 @@ class ImprovementViewController: UIViewController {
         self.view.addSubview(offerLabel)
         offerLabel.textAlignment = .left
         offerLabel.font = UIFont(name: "Verdana-Bold", size: 28.0)
-        offerLabel.numberOfLines = 2
+        offerLabel.numberOfLines = .max
         
         let safeArea = view.safeAreaLayoutGuide
         offerLabel.translatesAutoresizingMaskIntoConstraints = false

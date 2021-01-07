@@ -83,7 +83,7 @@ class ImprovementCollectionViewCell: UICollectionViewCell {
     
     private func setupTitleLabel() {
         contentView.addSubview(titleLabel)
-        titleLabel.numberOfLines = 5
+        titleLabel.numberOfLines = .max
         titleLabel.textAlignment = .left
         titleLabel.font = UIFont(name: "Verdana-Bold", size: 20.0)
         
@@ -95,7 +95,7 @@ class ImprovementCollectionViewCell: UICollectionViewCell {
     
     private func setupDescriptionLabel() {
         contentView.addSubview(descriptionLabel)
-        descriptionLabel.numberOfLines = 5
+        descriptionLabel.numberOfLines = .max
         descriptionLabel.textAlignment = .left
         descriptionLabel.font = UIFont(name: "Verdana", size: 16.0)
         
