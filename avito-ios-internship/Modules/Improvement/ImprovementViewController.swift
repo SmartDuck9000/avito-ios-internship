@@ -28,7 +28,7 @@ class ImprovementViewController: UIViewController {
         self.offerLabel.text = title
     }
     
-    func setSelectedActionTitle(_ title: String) {
+    func setSelectButtonTitle(_ title: String) {
         self.selectButton.setTitle(title, for: .normal)
     }
     

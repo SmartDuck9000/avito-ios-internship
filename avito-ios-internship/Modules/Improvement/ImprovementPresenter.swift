@@ -10,6 +10,7 @@ import UIKit
 protocol ImprovementPresenterProtocol: class {
     func cellForItem(at index: Int, cell: ImprovementCollectionViewCell)
     func selectItemClicked(at index: Int)
+    func reloadActionTitle()
     func numberOfItemsInSection() -> Int
     func selectButtonClicked()
 }
@@ -25,10 +26,8 @@ class ImprovementPresenter: ImprovementPresenterProtocol {
     
     func configureView() {
         guard let title = self.interactor?.getTitle() else { return }
-        guard let selectedActionTitle = self.interactor?.getSelectedActionTitle() else { return }
-        
         self.view?.setOfferTitle(title)
-        self.view?.setSelectedActionTitle(selectedActionTitle)
+        reloadActionTitle()
     }
     
     func cellForItem(at index: Int, cell: ImprovementCollectionViewCell) {
@@ -67,10 +66,26 @@ class ImprovementPresenter: ImprovementPresenterProtocol {
     
     func selectItemClicked(at index: Int) {
         interactor?.improvementChanged(at: index)
+        reloadActionTitle()
         guard let offset = view?.improvementsCollectionView.contentOffset else { return }
         view?.improvementsCollectionView.reloadData()
         view?.improvementsCollectionView.layoutIfNeeded()
         view?.improvementsCollectionView.setContentOffset(offset, animated: false)
+    }
+    
+    func reloadActionTitle() {
+        guard let interactor = interactor else { return }
+        let selectButtonTitle: String
+        
+        if interactor.isAnyImprovementSelected() {
+            guard let title = interactor.getSelectedActionTitle() else { return }
+            selectButtonTitle = title
+        } else {
+            guard let title = interactor.getActionTitle() else { return }
+            selectButtonTitle = title
+        }
+        
+        self.view?.setSelectButtonTitle(selectButtonTitle)
     }
     
     func numberOfItemsInSection() -> Int {
@@ -81,13 +96,11 @@ class ImprovementPresenter: ImprovementPresenterProtocol {
     }
     
     func selectButtonClicked() {
-        guard let actionTitle = interactor?.getActionTitle() else { return }
-        
         var selectedImprovementTitle = "Ничего не выбрано"
         if let title = interactor?.getSelectedImprovementTitle() {
             selectedImprovementTitle = title
         }
         
-        router?.showAlert(title: selectedImprovementTitle, actionTitle: actionTitle)
+        router?.showAlert(title: selectedImprovementTitle, actionTitle: "OK")
     }
 }

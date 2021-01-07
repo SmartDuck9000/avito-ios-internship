@@ -19,6 +19,7 @@ protocol ImprovementInteractorProtocol: class {
     func getImprovementPrice(at index: Int) -> String?
     func getImprovementIconURL(at index: Int) -> String?
     func isImprovementSelected(at index: Int) -> Bool?
+    func isAnyImprovementSelected() -> Bool
     
     func getTitle() -> String?
     func getActionTitle() -> String?
@@ -45,6 +46,7 @@ class ImprovementInteractor: ImprovementInteractorProtocol {
             guard let jsonImprovementData = data else { return }
             self.advertismentImprovement = self.parser?.parse(from: jsonImprovementData)
             let improvements = self.advertismentImprovement?.improvements
+            self.selectedImprovement = nil
             
             if var selected = improvements?.filter({ $0.isSelected }), selected.count > 0 {
                 self.selectedImprovement = selected.first
@@ -96,6 +98,10 @@ class ImprovementInteractor: ImprovementInteractorProtocol {
     
     func isImprovementSelected(at index: Int) -> Bool? {
         return advertismentImprovement?.improvements[index].isSelected
+    }
+    
+    func isAnyImprovementSelected() -> Bool {
+        return selectedImprovement != nil
     }
     
     func improvementsCount() -> Int? {
