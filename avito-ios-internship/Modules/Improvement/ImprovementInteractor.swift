@@ -70,7 +70,12 @@ class ImprovementInteractor: ImprovementInteractorProtocol {
         if let currentImprovement = selectedImprovement {
             currentImprovement.isSelected = false
         }
-        selectedImprovement = improvement
+        
+        if improvement.isSelected {
+            selectedImprovement = improvement
+        } else {
+            selectedImprovement = nil
+        }
     }
     
     func getImprovementTitle(at index: Int) -> String? {
