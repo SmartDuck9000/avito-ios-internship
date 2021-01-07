@@ -8,13 +8,17 @@
 import UIKit
 
 protocol ImprovementAssemblyProtocol: class {
-    func assemble(with: ImprovementViewProtocol)
+    func assemble(with: ImprovementViewController)
 }
 
 class ImprovementAssembly: ImprovementAssemblyProtocol {
-    func assemble(with viewController: ImprovementViewProtocol) {
+    func assemble(with viewController: ImprovementViewController) {
         let interactor = ImprovementInteractor()
-        let presenter = ImprovementPresenter(view: viewController, interactor: interactor)
+        let router = ImprovementRouter(view: viewController)
+        let presenter = ImprovementPresenter(view: viewController)
+        presenter.interactor = interactor
+        presenter.router = router
+        presenter.configureView()
         
         interactor.presenter = presenter
         viewController.presenter = presenter

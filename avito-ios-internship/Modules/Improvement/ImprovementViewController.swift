@@ -7,16 +7,7 @@
 
 import UIKit
 
-protocol ImprovementViewProtocol: class, UICollectionViewDelegate, UICollectionViewDataSource {
-    var presenter: ImprovementPresenterProtocol? { get set }
-    var improvementsCollectionView: UICollectionView { get set }
-    
-    func showAlert(with title: String, actionTitle: String)
-    func setOfferTitle(_ title: String)
-    func setSelectedActionTitle(_ title: String)
-}
-
-class ImprovementViewController: UIViewController, ImprovementViewProtocol {
+class ImprovementViewController: UIViewController {
     var presenter: ImprovementPresenterProtocol?
     var assembly: ImprovementAssemblyProtocol = ImprovementAssembly()
     
@@ -31,13 +22,6 @@ class ImprovementViewController: UIViewController, ImprovementViewProtocol {
         super.viewDidLoad()
         assembly.assemble(with: self)
         setupView()
-    }
-    
-    func showAlert(with title: String, actionTitle: String) {
-        let alertController = UIAlertController()
-        alertController.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
-        alertController.title = title
-        self.present(alertController, animated: true)
     }
     
     func setOfferTitle(_ title: String) {
@@ -128,13 +112,13 @@ class ImprovementViewController: UIViewController, ImprovementViewProtocol {
     }
 }
 
-extension ImprovementViewController {
+extension ImprovementViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter?.selectItemClicked(at: indexPath.row)
     }
 }
 
-extension ImprovementViewController {
+extension ImprovementViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let presenter = presenter {
             return presenter.numberOfItemsInSection()

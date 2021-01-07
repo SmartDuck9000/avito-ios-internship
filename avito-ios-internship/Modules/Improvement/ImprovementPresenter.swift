@@ -15,13 +15,15 @@ protocol ImprovementPresenterProtocol: class {
 }
 
 class ImprovementPresenter: ImprovementPresenterProtocol {
-    weak var view: ImprovementViewProtocol?
+    weak var view: ImprovementViewController?
     var interactor: ImprovementInteractorProtocol?
+    var router: ImprovementRouterProtocol?
     
-    init(view: ImprovementViewProtocol, interactor: ImprovementInteractorProtocol) {
+    init(view: ImprovementViewController) {
         self.view = view
-        self.interactor = interactor
-        
+    }
+    
+    func configureView() {
         guard let title = self.interactor?.getTitle() else { return }
         guard let selectedActionTitle = self.interactor?.getSelectedActionTitle() else { return }
         
@@ -90,6 +92,6 @@ class ImprovementPresenter: ImprovementPresenterProtocol {
             selectedImprovementTitle = title
         }
         
-        view?.showAlert(with: selectedImprovementTitle, actionTitle: actionTitle)
+        router?.showAlert(title: selectedImprovementTitle, actionTitle: actionTitle)
     }
 }
