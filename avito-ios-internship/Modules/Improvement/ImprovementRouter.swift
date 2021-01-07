@@ -20,9 +20,8 @@ class ImprovementRouter: ImprovementRouterProtocol {
     }
     
     func showAlert(title: String, actionTitle: String) {
-        let alertController = UIAlertController()
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: actionTitle, style: .default, handler: nil))
-        alertController.title = title
         view.present(alertController, animated: true)
     }
 }

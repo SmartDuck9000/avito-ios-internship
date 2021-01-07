@@ -45,6 +45,7 @@ class ImprovementInteractor: ImprovementInteractorProtocol {
             guard let jsonImprovementData = data else { return }
             self.advertismentImprovement = self.parser?.parse(from: jsonImprovementData)
             let improvements = self.advertismentImprovement?.improvements
+            
             if var selected = improvements?.filter({ $0.isSelected }), selected.count > 0 {
                 self.selectedImprovement = selected.first
                 if selected.count > 1 {
@@ -64,6 +65,7 @@ class ImprovementInteractor: ImprovementInteractorProtocol {
     
     func improvementChanged(at index: Int) {
         guard let improvement = advertismentImprovement?.improvements[index] else { return }
+        
         improvement.isSelected = !improvement.isSelected
         if let currentImprovement = selectedImprovement {
             currentImprovement.isSelected = false
