@@ -36,8 +36,15 @@ class ImprovementInteractor: ImprovementInteractorProtocol {
         guard let jsonImprovementData = loader.load(from: "result") else { return }
         advertismentImprovement = parser.parse(from: jsonImprovementData)
         let improvements = advertismentImprovement?.improvements
-        if let selected = improvements?.filter({ $0.isSelected }), selected.count > 0 {
+        if var selected = improvements?.filter({ $0.isSelected }), selected.count > 0 {
             selectedImprovement = selected.first
+            if selected.count > 1 {
+                print("Warning: result.json contains more than one selected improvement!")
+                selected.removeFirst()
+                for improvement in selected {
+                    improvement.isSelected = false
+                }
+            }
         }
     }
     
