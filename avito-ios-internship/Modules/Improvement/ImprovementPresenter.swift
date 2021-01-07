@@ -43,12 +43,8 @@ class ImprovementPresenter: ImprovementPresenterProtocol {
         cell.setTitle(title)
         cell.setDescription(description)
         cell.setPrice(price)
-        
-        if isSelected {
-            cell.setSelectedImage(UIImage(named: "checkmark.pdf"))
-        } else {
-            cell.setSelectedImage(nil)
-        }
+        cell.setSelectedImage(UIImage(named: "checkmark.pdf"))
+        cell.setHiddenSelectImage(!isSelected)
         
         interactor?.loadImage(from: iconStrURL, complition: { (data) in
             let iconImage: UIImage?
