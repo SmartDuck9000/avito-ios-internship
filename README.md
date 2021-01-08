@@ -28,14 +28,10 @@
 В задании не было указано, что делать в случае, если в файле сразу несколько элементов считаются выбранными, в то время, как в задании сказано, что одновременно может быть отмечен только один элемент. В подобном случае выбранной считается первая встреченная ячейка с isSelected = true, остальные же элементы со значением поля isSelected = true присваивается isSelected = false, также печатается предупреждение о том, что найден более чем один отмеченный элемент.
 
 ### Примеры работы:
-![](resultScreenshots/portraitSelect.png) 
+<img src="resultScreenshots/portraitSelect.png" width=400> <img src="resultScreenshots/portraitNotSelect.png" width=400>
 
-![](resultScreenshots/portraitNotSelect.png)
+<img src="resultScreenshots/landscapeSelect.png" width=800>
 
-![](resultScreenshots/landscapeSelect.png)
+<img src="resultScreenshots/landscapeNotSelect.png" width=800>
 
-![](resultScreenshots/landscapeNotSelect.png)
-
-![](resultScreenshots/selectPressed.png)
-
-![](resultScreenshots/notSelectPressed.png)
+<img src="resultScreenshots/selectPressed.png" width=400>  <img src="resultScreenshots/notSelectPressed.png" width=400>
