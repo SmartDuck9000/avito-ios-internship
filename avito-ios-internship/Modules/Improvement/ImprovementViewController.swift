@@ -98,7 +98,6 @@ class ImprovementViewController: UIViewController {
         offerLabel.topAnchor.constraint(equalTo: self.closeButton.bottomAnchor, constant: 10).isActive = true
         offerLabel.leftAnchor.constraint(equalTo: safeArea.leftAnchor, constant: 15).isActive = true
         offerLabel.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -15).isActive = true
-        offerLabel.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
     private func setupSelectButton() {
