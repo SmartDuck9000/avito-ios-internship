@@ -77,7 +77,7 @@ class ImprovementViewController: UIViewController {
         
         let closeIconImage = UIImage(named: "CloseIconTemplate.pdf")
         closeButton.setImage(closeIconImage, for: .normal)
-        closeButton.isEnabled = false
+        closeButton.isUserInteractionEnabled = false
         
         let safeArea = view.safeAreaLayoutGuide
         closeButton.translatesAutoresizingMaskIntoConstraints = false
